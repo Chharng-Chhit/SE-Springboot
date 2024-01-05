@@ -4,6 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.lambdacode.spring.boot.crud.Course.Course;
+import com.lambdacode.spring.boot.crud.Course.CourseRepository;
+
 import java.util.List;
 
 public interface UserService {
@@ -17,8 +20,7 @@ public interface UserService {
 
 @Service
 class UserServiceImpl implements UserService {
-    @Autowired
-    private UserRepository userRepository;
+    @Autowired UserRepository userRepository;
 
     /**
      * add user
@@ -28,6 +30,17 @@ class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Autowired
+    private CourseRepository courseRepository;
+
+    // Other methods...
+
+    @Override
+    public List<Course> getCoursesManagedByUser(Long userId) {
+        // Implement the logic to fetch courses managed by the user with the given userId
+        // You might have a method in your CourseRepository to get courses managed by a specific user
+        return courseRepository.findCoursesByManagerId(userId);
+    }
     /**
      * get users as list
      */

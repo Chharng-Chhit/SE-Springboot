@@ -22,7 +22,6 @@ public class User {
     private String userType;
     @ManyToMany(mappedBy = "enrolledUsers")
     private Set<Course> enrolledCourses = new HashSet<>();
-    // Other getters and setters
     public Set<Course> getEnrolledCourses() {
         return enrolledCourses;
     }

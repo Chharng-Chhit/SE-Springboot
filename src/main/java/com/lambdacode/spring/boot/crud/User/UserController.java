@@ -3,6 +3,7 @@ package com.lambdacode.spring.boot.crud.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.lambdacode.spring.boot.crud.Course.Course;
 
 import java.util.List;
 
@@ -13,9 +14,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    /**
-     * add user
-     */
+    @GetMapping("/{userId}/courses")
+    public ResponseEntity<List<Course>> getCoursesManagedByUser(@PathVariable Integer userId) {
+        User user = userService.getUser(userId);
+
+        if (user != null) {
+            List<Course> userCourses = userService.getCoursesManagedByUser(userId);
+            return ResponseEntity.ok(userCourses);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @PostMapping("/add")
     public String addUser(@RequestBody User user) {
@@ -58,7 +67,7 @@ public class UserController {
      */
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
 
         return ResponseEntity.noContent().build();
@@ -69,7 +78,7 @@ public class UserController {
      */
 
     @PatchMapping("/update-name/{id}")
-    public ResponseEntity<Void> updateName(@PathVariable Integer id, @RequestBody UserDTO userDTO){
+    public ResponseEntity<Void> updateName(@PathVariable Integer id, @RequestBody UserDTO userDTO) {
         userService.updateName(id, userDTO);
 
         return ResponseEntity.noContent().build();
