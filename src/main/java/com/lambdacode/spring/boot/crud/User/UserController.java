@@ -3,7 +3,6 @@ package com.lambdacode.spring.boot.crud.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.lambdacode.spring.boot.crud.Course.Course;
 
 import java.util.List;
 
@@ -13,19 +12,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @GetMapping("/{userId}/courses")
-    public ResponseEntity<List<Course>> getCoursesManagedByUser(@PathVariable Integer userId) {
-        User user = userService.getUser(userId);
-
-        if (user != null) {
-            List<Course> userCourses = userService.getCoursesManagedByUser(userId);
-            return ResponseEntity.ok(userCourses);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @PostMapping("/add")
     public String addUser(@RequestBody User user) {
         userService.addUser(user);

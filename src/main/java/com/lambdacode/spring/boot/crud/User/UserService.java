@@ -4,9 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.lambdacode.spring.boot.crud.Course.Course;
-import com.lambdacode.spring.boot.crud.Course.CourseRepository;
-
 import java.util.List;
 
 public interface UserService {
@@ -30,20 +27,7 @@ class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    @Autowired
-    private CourseRepository courseRepository;
 
-    // Other methods...
-
-    @Override
-    public List<Course> getCoursesManagedByUser(Long userId) {
-        // Implement the logic to fetch courses managed by the user with the given userId
-        // You might have a method in your CourseRepository to get courses managed by a specific user
-        return courseRepository.findCoursesByManagerId(userId);
-    }
-    /**
-     * get users as list
-     */
     @Override
     public List<User> getUsers() {
         return userRepository.findAll();
